@@ -6,7 +6,7 @@ import MathRenderer from './MathRenderer';
 const ChatWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { role: 'model', text: 'Chào em! 👋 Thầy là Gia sư Toán AI.\nEm có thể hỏi bài hoặc gửi ảnh đề bài để thầy giải giúp nhé! 📸💡' }
+    { role: 'model', text: 'Chào em! 👋 Cô là Gia sư Toán AI.\nEm có thể hỏi bài hoặc gửi ảnh đề bài để cô giải giúp nhé! 📸💡' }
   ]);
   const [input, setInput] = useState('');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -24,7 +24,7 @@ const ChatWidget: React.FC = () => {
       scrollToBottom();
       // Focus input only if not interacting with file selection
       if (!selectedImage) {
-         setTimeout(() => inputRef.current?.focus(), 100);
+        setTimeout(() => inputRef.current?.focus(), 100);
       }
     }
   }, [isOpen, messages, selectedImage]);
@@ -47,18 +47,18 @@ const ChatWidget: React.FC = () => {
 
     const userMsgText = input.trim();
     const userImage = selectedImage;
-    
+
     setInput('');
     setSelectedImage(null);
-    
+
     // Add user message to UI immediately
     const newHistory: ChatMessage[] = [
-        ...messages, 
-        { 
-            role: 'user', 
-            text: userMsgText,
-            image: userImage || undefined
-        }
+      ...messages,
+      {
+        role: 'user',
+        text: userMsgText,
+        image: userImage || undefined
+      }
     ];
     setMessages(newHistory);
     setIsLoading(true);
@@ -68,7 +68,7 @@ const ChatWidget: React.FC = () => {
       const responseText = await getChatTutorResponse(messages, userMsgText, userImage || undefined);
       setMessages([...newHistory, { role: 'model', text: responseText }]);
     } catch (error) {
-      setMessages([...newHistory, { role: 'model', text: 'Thầy xin lỗi, có chút trục trặc kỹ thuật. Em thử lại sau nhé!' }]);
+      setMessages([...newHistory, { role: 'model', text: 'Cô xin lỗi, có chút trục trặc kỹ thuật. Em thử lại sau nhé!' }]);
     } finally {
       setIsLoading(false);
     }
@@ -87,7 +87,7 @@ const ChatWidget: React.FC = () => {
         <button
           onClick={() => setIsOpen(true)}
           className="fixed bottom-6 right-6 z-50 p-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 group"
-          title="Hỏi thầy Toán AI"
+          title="Hỏi cô Toán AI"
         >
           <MessageCircle className="w-8 h-8" />
           <span className="absolute -top-1 -right-1 flex h-4 w-4">
@@ -107,14 +107,14 @@ const ChatWidget: React.FC = () => {
                 <Bot className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="font-bold text-lg">Thầy Toán AI</h3>
+                <h3 className="font-bold text-lg">Cô Toán AI</h3>
                 <div className="flex items-center gap-1.5 opacity-90">
                   <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                   <span className="text-xs font-medium">Sẵn sàng giải toán</span>
                 </div>
               </div>
             </div>
-            <button 
+            <button
               onClick={() => setIsOpen(false)}
               className="p-2 hover:bg-white/20 rounded-full transition-colors"
             >
@@ -136,32 +136,32 @@ const ChatWidget: React.FC = () => {
 
                   {/* Bubble Content */}
                   <div className={`max-w-[80%] flex flex-col gap-2 ${isUser ? 'items-end' : 'items-start'}`}>
-                     {/* Image in message */}
-                     {msg.image && (
-                         <div className="rounded-xl overflow-hidden border border-gray-200 shadow-sm max-w-full">
-                             <img src={msg.image} alt="User upload" className="w-full h-auto object-cover max-h-48" />
-                         </div>
-                     )}
+                    {/* Image in message */}
+                    {msg.image && (
+                      <div className="rounded-xl overflow-hidden border border-gray-200 shadow-sm max-w-full">
+                        <img src={msg.image} alt="User upload" className="w-full h-auto object-cover max-h-48" />
+                      </div>
+                    )}
 
-                     {/* Text Bubble */}
-                     {(msg.text || !msg.image) && (
-                        <div className={`p-3 rounded-2xl shadow-sm text-sm leading-relaxed
-                            ${isUser 
-                            ? 'bg-indigo-500 text-white rounded-br-none' 
-                            : 'bg-white text-gray-800 border border-gray-100 rounded-bl-none'
-                            }`}>
-                            <MathRenderer text={msg.text} />
-                        </div>
-                     )}
+                    {/* Text Bubble */}
+                    {(msg.text || !msg.image) && (
+                      <div className={`p-3 rounded-2xl shadow-sm text-sm leading-relaxed
+                            ${isUser
+                          ? 'bg-indigo-500 text-white rounded-br-none'
+                          : 'bg-white text-gray-800 border border-gray-100 rounded-bl-none'
+                        }`}>
+                        <MathRenderer text={msg.text} />
+                      </div>
+                    )}
                   </div>
                 </div>
               );
             })}
-            
+
             {isLoading && (
               <div className="flex items-end gap-2">
                 <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0 text-white">
-                   <Sparkles className="w-4 h-4" />
+                  <Sparkles className="w-4 h-4" />
                 </div>
                 <div className="bg-white p-4 rounded-2xl rounded-bl-none border border-gray-100 shadow-sm">
                   <div className="flex gap-1.5">
@@ -178,27 +178,27 @@ const ChatWidget: React.FC = () => {
           {/* Image Preview Area */}
           {selectedImage && (
             <div className="px-4 py-2 bg-gray-50 border-t border-gray-100 flex items-start gap-2 animate-fade-in">
-                <div className="relative group">
-                    <img src={selectedImage} alt="Preview" className="w-16 h-16 object-cover rounded-lg border border-gray-300" />
-                    <button 
-                        onClick={() => setSelectedImage(null)}
-                        className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 shadow-md hover:bg-red-600 transition-colors"
-                    >
-                        <X className="w-3 h-3" />
-                    </button>
-                </div>
-                <div className="text-xs text-gray-500 italic mt-1">
-                    Đã chọn ảnh. Nhấn gửi để thầy giải nhé!
-                </div>
+              <div className="relative group">
+                <img src={selectedImage} alt="Preview" className="w-16 h-16 object-cover rounded-lg border border-gray-300" />
+                <button
+                  onClick={() => setSelectedImage(null)}
+                  className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 shadow-md hover:bg-red-600 transition-colors"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+              <div className="text-xs text-gray-500 italic mt-1">
+                Đã chọn ảnh. Nhấn gửi để cô giải nhé!
+              </div>
             </div>
           )}
 
           {/* Input Area */}
           <div className="p-4 bg-white border-t border-gray-100">
             <div className="flex items-center gap-2 bg-gray-50 p-2 rounded-2xl border border-gray-200 focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-100 transition-all">
-              
+
               {/* Image Upload Button */}
-              <button 
+              <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isLoading}
                 className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors disabled:opacity-50"
@@ -206,10 +206,10 @@ const ChatWidget: React.FC = () => {
               >
                 <ImageIcon className="w-5 h-5" />
               </button>
-              <input 
-                type="file" 
+              <input
+                type="file"
                 ref={fileInputRef}
-                className="hidden" 
+                className="hidden"
                 accept="image/*"
                 onChange={handleFileSelect}
               />
@@ -224,13 +224,13 @@ const ChatWidget: React.FC = () => {
                 className="flex-1 bg-transparent px-2 py-1 outline-none text-gray-700 placeholder:text-gray-400 text-sm"
                 disabled={isLoading}
               />
-              
+
               <button
                 onClick={handleSend}
                 disabled={(!input.trim() && !selectedImage) || isLoading}
                 className={`p-2 rounded-full transition-all flex-shrink-0
-                  ${(!input.trim() && !selectedImage) || isLoading 
-                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+                  ${(!input.trim() && !selectedImage) || isLoading
+                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                     : 'bg-blue-600 text-white hover:bg-blue-700 shadow-md'}`}
               >
                 <Send className="w-5 h-5" />
