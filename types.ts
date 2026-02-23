@@ -1,5 +1,5 @@
 
-export type EducationLevel = 'primary' | 'middle' | 'high';
+export type EducationLevel = 'high';
 
 export type Difficulty = 'recognition' | 'understanding' | 'application';
 
