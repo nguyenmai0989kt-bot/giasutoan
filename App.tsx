@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BookOpen, GraduationCap, School, Brain, Sparkles, Calculator, PenTool, History, Settings } from 'lucide-react';
+import { GraduationCap, Brain, Sparkles, Calculator, PenTool, History, Settings } from 'lucide-react';
 import { EducationLevel, QuizState, GradeConfig, QuizResult } from './types';
 import { LEVELS, CURRICULUM, THEMES } from './constants';
 import { generateQuizQuestions } from './services/geminiService';
@@ -11,8 +11,8 @@ import SettingsModal from './components/SettingsModal';
 
 const App: React.FC = () => {
   // Setup State
-  const [level, setLevel] = useState<EducationLevel>('primary');
-  const [grade, setGrade] = useState<number>(1);
+  const [level] = useState<EducationLevel>('high');
+  const [grade, setGrade] = useState<number>(10);
   const [topic, setTopic] = useState<string>('');
   const [customTopic, setCustomTopic] = useState<string>('');
 
@@ -42,8 +42,8 @@ const App: React.FC = () => {
   // Quiz State
   const [quizState, setQuizState] = useState<QuizState>({
     status: 'setup',
-    level: 'primary',
-    grade: 1,
+    level: 'high',
+    grade: 10,
     topic: '',
     questions: [],
     currentQuestionIndex: 0,
@@ -241,7 +241,7 @@ const App: React.FC = () => {
                 <h1 className="text-lg md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600">
                   GIA SƯ TOÁN PRO
                 </h1>
-                <span className="text-xs text-gray-500 font-medium tracking-wider">Math Tutor by Tran Hoai Thanh</span>
+                <span className="text-xs text-gray-500 font-medium tracking-wider">Math Tutor by Nguyen Thi Mai</span>
               </div>
             </div>
             <div className="flex gap-2">
@@ -269,29 +269,13 @@ const App: React.FC = () => {
 
         <main className="max-w-4xl mx-auto px-4 py-8 md:py-12">
           <div className="bg-white rounded-[2rem] shadow-xl border border-white/50 overflow-hidden backdrop-blur-sm">
-            {/* Tabs */}
+            {/* THPT Header */}
             <div className="flex border-b border-gray-100">
-              {(Object.keys(LEVELS) as EducationLevel[]).map((lvl) => (
-                <button
-                  key={lvl}
-                  onClick={() => setLevel(lvl)}
-                  className={`flex-1 py-6 text-sm md:text-base font-bold transition-all flex items-center justify-center gap-2 relative overflow-hidden group
-                      ${level === lvl
-                      ? `bg-white ${THEMES[lvl].text}`
-                      : 'bg-gray-50 text-gray-400 hover:bg-gray-100'
-                    }`}
-                >
-                  {/* Active Indicator Line */}
-                  {level === lvl && (
-                    <div className={`absolute bottom-0 left-0 w-full h-1 ${THEMES[lvl].primary}`}></div>
-                  )}
-
-                  {lvl === 'primary' && <School className={`w-5 h-5 transition-transform group-hover:scale-110 ${level === lvl ? 'animate-bounce-short' : ''}`} />}
-                  {lvl === 'middle' && <BookOpen className={`w-5 h-5 transition-transform group-hover:scale-110 ${level === lvl ? 'animate-bounce-short' : ''}`} />}
-                  {lvl === 'high' && <GraduationCap className={`w-5 h-5 transition-transform group-hover:scale-110 ${level === lvl ? 'animate-bounce-short' : ''}`} />}
-                  {LEVELS[lvl]}
-                </button>
-              ))}
+              <div className="flex-1 py-6 text-sm md:text-base font-bold flex items-center justify-center gap-2 relative bg-white text-purple-800">
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-[#9C27B0]"></div>
+                <GraduationCap className="w-5 h-5 animate-bounce-short" />
+                THPT 🎯
+              </div>
             </div>
 
             <div className="p-6 md:p-10 space-y-8">
